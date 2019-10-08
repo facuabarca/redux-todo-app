@@ -30,6 +30,15 @@ export function todoReducer(state = estadoInicial, action: fromTodo.Acciones): T
             } );
         }
 
+        case fromTodo.TOGGLE_ALL_TODO: {
+            return state.map(todoEdit => {
+                return {
+                    ...todoEdit,
+                    completado: action.completado
+                };
+            });
+        }
+
         case fromTodo.EDITAR_TODO: {
             return state.map( todoEdit => {
                 if (todoEdit.id === action.id) {
@@ -41,6 +50,10 @@ export function todoReducer(state = estadoInicial, action: fromTodo.Acciones): T
                     return todoEdit;
                 }
             });
+        }
+
+        case fromTodo.ELIMINAR_TODO: {
+            return state.filter( todoDelete => todoDelete.id !== action.id );
         }
 
         default:

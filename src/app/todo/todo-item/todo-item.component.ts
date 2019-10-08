@@ -33,22 +33,28 @@ export class TodoItemComponent implements OnInit {
     });
   }
 
-  editar() {
+  editar(): void {
     this.editando = true;
     setTimeout(() => {
       this.txtFisico.nativeElement.select();
     }, (1));
   }
 
-  terminarEdicion() {
+  terminarEdicion(): void{
     this.editando = false;
 
     if (this.txtInput.invalid || this.txtInput.value === this.todo.texto) {
       return;
     }
+
     const action = new todoActions.EditarTodoAction(this.todo.id, this.txtInput.value);
     this.store.dispatch(action);
 
+  }
+
+  borrarTodo(): void {
+    const action = new todoActions.EliminarTodoAction(this.todo.id);
+    this.store.dispatch(action);
   }
 
 }
